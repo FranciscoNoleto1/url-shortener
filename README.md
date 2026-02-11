@@ -48,6 +48,22 @@ python3 -m uvicorn app.main:app --reload
 
 A API fica em **http://127.0.0.1:8000**. A documentação interativa (Swagger) em **http://127.0.0.1:8000/docs**.
 
+### 6. Rodando com Docker
+
+#### Build da imagem
+
+```bash
+docker build -t url-shortener .
+```
+
+#### Subir com docker-compose
+
+```bash
+docker compose up --build
+```
+
+A API ficará disponível em `http://localhost:8000` (proxy do container).
+
 ## Uso da API
 
 ### Encurtar uma URL
