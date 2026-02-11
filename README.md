@@ -88,16 +88,29 @@ Exemplo: **GET** `http://localhost:8000/m8A2bc1`
 
 ## Estrutura do projeto
 
+Arquitetura em camadas, aproximando de um padrão MVC:
+
+- **Model**: `models.py` (ORM) + `database.py`
+- **View**: respostas HTTP geradas pelo FastAPI (schemas Pydantic em `schemas.py`)
+- **Controller**: rotas em `app/api/routes.py`
+- **Service**: regras de negócio em `app/services/url_service.py`
+
 ```
 url-shortener/
 ├── app/
 │   ├── __init__.py
-│   ├── config.py      # Configuração (Hashids, dotenv)
-│   ├── database.py    # Engine e sessão SQLAlchemy
-│   ├── main.py        # Rotas FastAPI
-│   ├── models.py      # Modelo URL
-│   ├── schemas.py     # Schemas Pydantic
-│   └── shortener.py   # encode_id / decode_code (Hashids)
+│   ├── api/
+│   │   ├── __init__.py        # Camada de API (rotas / controllers)
+│   │   └── routes.py          # Endpoints FastAPI
+│   ├── config.py              # Configuração (Hashids, dotenv)
+│   ├── database.py            # Engine e sessão SQLAlchemy
+│   ├── main.py                # Criação do app + registro das rotas
+│   ├── models.py              # Modelo URL (camada de persistência)
+│   ├── schemas.py             # Schemas Pydantic (camada de entrada/saída)
+│   ├── services/
+│   │   ├── __init__.py        # Camada de serviços (regras de negócio)
+│   │   └── url_service.py     # Lógica de encurtar / resolver URLs
+│   └── shortener.py           # encode_id / decode_code (Hashids)
 ├── .env.example
 ├── requirements.txt
 └── README.md
