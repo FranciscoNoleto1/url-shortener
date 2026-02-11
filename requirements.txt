@@ -4,3 +4,4 @@ sqlalchemy
 hashids
 pydantic
 python-dotenv
+pytest
